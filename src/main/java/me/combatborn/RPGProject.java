@@ -2,6 +2,8 @@ package me.combatborn;
 
 import me.combatborn.data.PlayerData;
 import me.combatborn.items.RPGItem;
+import me.combatborn.skills.Skill;
+import me.combatborn.skills.enums.SkillData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
