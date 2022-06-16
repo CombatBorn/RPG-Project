@@ -1,7 +1,10 @@
-name: RPG Project
+name: RPGProject
 version: ${project.version}
 main: me.combatborn.RPGProject
 api-version: 1.19
 prefix: RPGP
 authors: [ CombatBorn ]
 description: A RPG Project
+commands:
+  Test:
+    description: A command used to test.

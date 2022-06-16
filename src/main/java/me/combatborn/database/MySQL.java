@@ -43,7 +43,7 @@ public class MySQL {
             try {
                 this.connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port +
                         "/" + this.database + "?useSSL=false", this.username, this.password);
-                Bukkit.getLogger().info("[Yu-Craft] Connected to the \"" + this.type + "\" SQL Server.");
+                Bukkit.getLogger().info("[RPG Project] Connected to the \"" + this.type + "\" SQL Server.");
             } catch (SQLException e) {
                 Bukkit.getLogger().info("Error establishing SQL Connection.");
                 e.printStackTrace();

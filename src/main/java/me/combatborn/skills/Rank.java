@@ -1,24 +1,27 @@
 package me.combatborn.skills;
 
 import me.combatborn.data.PlayerData;
+import me.combatborn.skills.enums.RankType;
 
 public class Rank {
 
     private PlayerData playerData;
 
-    private double rank;
+    private int rank;
+    private RankType rankType;
     private int experience;
     private int points;
 
-    public Rank(PlayerData playerData, int experience, int points) {
+    public Rank(PlayerData playerData, RankType rankType, int experience, int points) {
         this.playerData = playerData;
+        this.rankType = rankType;
         this.experience = experience;
         this.points = points;
-        calculateRank();
+        this.rank = calculateRank();
     }
 
-    private void calculateRank(){
-        this.rank = this.experience / 1000;
+    private int calculateRank() {
+        return this.experience / 1000;
     }
 
     public PlayerData getPlayerData() {
@@ -35,5 +38,13 @@ public class Rank {
 
     public int getPoints() {
         return points;
+    }
+
+    public void removeRankPoint(boolean elite) {
+        if (elite) {
+            this.points -= 2;
+        } else {
+            this.points -= 1;
+        }
     }
 }

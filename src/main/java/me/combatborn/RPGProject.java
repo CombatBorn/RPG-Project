@@ -1,5 +1,6 @@
 package me.combatborn;
 
+import me.combatborn.commands.Test;
 import me.combatborn.data.LoginListener;
 import me.combatborn.data.PlayerData;
 import me.combatborn.data.PlayerDataManager;
@@ -18,8 +19,8 @@ public final class RPGProject extends JavaPlugin {
 
     public static boolean reboot = false;
 
-    public static HashMap<Integer, RPGItem> rpgItems;
-    public static HashMap<UUID, PlayerData> playerData;
+    public static HashMap<Integer, RPGItem> rpgItems = new HashMap<>();
+    public static HashMap<UUID, PlayerData> playerData = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -31,6 +32,7 @@ public final class RPGProject extends JavaPlugin {
 //        getCommand("RandomTeleport").setExecutor(new RandomTeleport());
 
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
+        getCommand("Test").setExecutor(new Test());
 
     }
 
@@ -52,6 +54,10 @@ public final class RPGProject extends JavaPlugin {
 
     public static PlayerData getPlayerData(Player player) {
         return RPGProject.playerData.getOrDefault(player.getUniqueId(), null);
+    }
+
+    public static boolean hasPlayerData(Player player){
+        return RPGProject.playerData.containsKey(player.getUniqueId());
     }
 
 }

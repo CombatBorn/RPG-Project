@@ -7,64 +7,64 @@ public enum SkillData {
     //normal skills
 
     // combat rank
-    HEALTH("Healthpoints", "HP", SkillType.COMBAT, false),
-    SPEED("Speed", "SPE", SkillType.COMBAT, false),
-    MELEE("Melee", "MEL", SkillType.COMBAT, false),
-    STRENGTH("Strength", "STR", SkillType.COMBAT, false),
-    ARCHERY("Archery", "ARCH", SkillType.COMBAT, false),
-    PRECISION("Precision", "PRE", SkillType.COMBAT, false),
-    MAGIC("Magic", "MAG", SkillType.COMBAT, false),
-    FOCUS("Focus", "FOC", SkillType.COMBAT, false),
+    HEALTH("Health", "HP", RankType.COMBAT, false),
+    SPEED("Speed", "SPE", RankType.COMBAT, false),
+    MELEE("Melee", "MEL", RankType.COMBAT, false),
+    STRENGTH("Strength", "STR", RankType.COMBAT, false),
+    ARCHERY("Archery", "ARCH", RankType.COMBAT, false),
+    PRECISION("Precision", "PRE", RankType.COMBAT, false),
+    MAGIC("Magic", "MAG", RankType.COMBAT, false),
+    FOCUS("Focus", "FOC", RankType.COMBAT, false),
 
     // gathering rank
-    THIEVING("Thieving", "THI", SkillType.GATHERING, false),
-    TAMING("Taming", "TAM", SkillType.GATHERING, false),
-    HUNTING("Hunting", "HUNT", SkillType.GATHERING, false),
-    FISHING("Fishing", "FISH", SkillType.GATHERING, false),
-    MINING("Mining", "MIN", SkillType.GATHERING, false),
-    LUMBERJACKING("Lumberjacking", "LUM", SkillType.GATHERING, false),
-    FARMING("Farming", "FARM", SkillType.GATHERING, false),
-    ENCHANTING("Enchanting", "ENCH", SkillType.GATHERING, false),
+    THIEVING("Thieving", "THI", RankType.GATHERING, false),
+    TAMING("Taming", "TAM", RankType.GATHERING, false),
+    HUNTING("Hunting", "HUNT", RankType.GATHERING, false),
+    FISHING("Fishing", "FISH", RankType.GATHERING, false),
+    MINING("Mining", "MIN", RankType.GATHERING, false),
+    LUMBERJACKING("Lumberjacking", "LUM", RankType.GATHERING, false),
+    FARMING("Farming", "FARM", RankType.GATHERING, false),
+    ENCHANTING("Enchanting", "ENCH", RankType.GATHERING, false),
 
     // crafting rank
-    FORGING("Forging", "FOR", SkillType.CRAFTING, false),
-    LEATHERWORKING("Leatherworking", "LEAW", SkillType.CRAFTING, false),
-    WOODWORKING("Woodworking", "WOOW", SkillType.CRAFTING, false),
-    WEAVING("Weaving", "WEA", SkillType.CRAFTING, false),
-    COOKING("Cooking", "COO", SkillType.CRAFTING, false),
-    FIRECREATION("Firecreation", "FIRC", SkillType.CRAFTING, false),
-    GLASSBLOWING("Glassblowing", "GLAB", SkillType.CRAFTING, false),
-    CRYSTALREADING("Crystalreading", "CRYR", SkillType.CRAFTING, false),
-    BUILDING("Building", "BUI", SkillType.CRAFTING, false),
+    FORGING("Forging", "FOR", RankType.CRAFTING, false),
+    LEATHERWORKING("Leatherworking", "LEAW", RankType.CRAFTING, false),
+    WOODWORKING("Woodworking", "WOOW", RankType.CRAFTING, false),
+    WEAVING("Weaving", "WEA", RankType.CRAFTING, false),
+    COOKING("Cooking", "COO", RankType.CRAFTING, false),
+    FIRECREATION("Firecreation", "FIRC", RankType.CRAFTING, false),
+    GLASSBLOWING("Glassblowing", "GLAB", RankType.CRAFTING, false),
+    CRYSTALREADING("Crystalreading", "CRYR", RankType.CRAFTING, false),
+    BUILDING("Building", "BUI", RankType.CRAFTING, false),
 
     //elite skills
 
     // crafting rank
-    ALCHEMY("Alchemy", "ALC", SkillType.CRAFTING, true, List.of(SkillData.COOKING)),
-    DIVINECREATION("Divinecreation", "DIVC", SkillType.CRAFTING, true, List.of(SkillData.PRECISION, SkillData.WEAVING, SkillData.LEATHERWORKING)),
-    INFERNALFORGING("Infernalforging", "INFF", SkillType.CRAFTING, true, List.of(SkillData.STRENGTH, SkillData.FIRECREATION, SkillData.FORGING)),
-    SOULCRAFTING("Soulcrafting", "SOCR", SkillType.CRAFTING, true, List.of(SkillData.FOCUS, SkillData.CRYSTALREADING, SkillData.GLASSBLOWING)),
+    ALCHEMY("Alchemy", "ALC", RankType.CRAFTING, true, List.of(SkillData.COOKING)),
+    DIVINECREATION("Divinecreation", "DIVC", RankType.CRAFTING, true, List.of(SkillData.PRECISION, SkillData.WEAVING, SkillData.LEATHERWORKING)),
+    INFERNALFORGING("Infernalforging", "INFF", RankType.CRAFTING, true, List.of(SkillData.STRENGTH, SkillData.FIRECREATION, SkillData.FORGING)),
+    SOULCRAFTING("Soulcrafting", "SOCR", RankType.CRAFTING, true, List.of(SkillData.FOCUS, SkillData.CRYSTALREADING, SkillData.GLASSBLOWING)),
 
     // gathering rank
-    DEEPFISHING("Deepfishing", "DEPF", SkillType.GATHERING, true, List.of(SkillData.FISHING, SkillData.HEALTH)),
-    BREEDING("Breeding", "BRE", SkillType.GATHERING, true, List.of(SkillData.ARCHERY, SkillData.TAMING)),
-    SOULCAPTURING("Soulcapturing", "SOCA", SkillType.GATHERING, true, List.of(SkillData.MAGIC, SkillData.HUNTING, SkillData.THIEVING)),
+    DEEPFISHING("Deepfishing", "DEPF", RankType.GATHERING, true, List.of(SkillData.FISHING, SkillData.HEALTH)),
+    BREEDING("Breeding", "BRE", RankType.GATHERING, true, List.of(SkillData.ARCHERY, SkillData.TAMING)),
+    SOULCAPTURING("Soulcapturing", "SOCA", RankType.GATHERING, true, List.of(SkillData.MAGIC, SkillData.HUNTING, SkillData.THIEVING)),
 
     // combat rank
-    CLOAKING("Cloaking", "CLO", SkillType.COMBAT, true, List.of(SkillData.SPEED, SkillData.THIEVING)),
-    TRANSCRIPTING("Transcripting", "TRA", SkillType.COMBAT, true, List.of(SkillData.PRECISION, SkillData.FOCUS)),
-    DARKMAGIC("Darkmagic", "DMAG", SkillType.COMBAT, true, List.of(SkillData.MAGIC, SkillData.ENCHANTING, SkillData.SPEED)),
-    SUMMONING("Summoning", "SUM", SkillType.COMBAT, true, List.of(SkillData.DARKMAGIC, SkillData.SOULCAPTURING, SkillData.SOULCRAFTING));
+    CLOAKING("Cloaking", "CLO", RankType.COMBAT, true, List.of(SkillData.SPEED, SkillData.THIEVING)),
+    TRANSCRIPTING("Transcripting", "TRA", RankType.COMBAT, true, List.of(SkillData.PRECISION, SkillData.FOCUS)),
+    DARKMAGIC("Darkmagic", "DMAG", RankType.COMBAT, true, List.of(SkillData.MAGIC, SkillData.ENCHANTING, SkillData.SPEED)),
+    SUMMONING("Summoning", "SUM", RankType.COMBAT, true, List.of(SkillData.DARKMAGIC, SkillData.SOULCAPTURING, SkillData.SOULCRAFTING));
 
     private String name, acronym;
     private boolean elite;
-    private SkillType skillType;
+    private RankType rankType;
     private List<SkillData> requiredSkills[];
 
-    SkillData(String name, String acronym, SkillType skillType, boolean elite, List<SkillData>... requriedSkills) {
+    SkillData(String name, String acronym, RankType rankType, boolean elite, List<SkillData>... requriedSkills) {
         this.name = name;
         this.acronym = acronym;
-        this.skillType = skillType;
+        this.rankType = rankType;
         this.elite = elite;
         this.requiredSkills = requriedSkills;
     }
@@ -81,8 +81,8 @@ public enum SkillData {
         return elite;
     }
 
-    public SkillType getRankType() {
-        return skillType;
+    public RankType getRankType() {
+        return rankType;
     }
 
     public List<SkillData>[] getRequiredSkills(){
