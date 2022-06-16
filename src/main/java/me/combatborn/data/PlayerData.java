@@ -1,6 +1,7 @@
 package me.combatborn.data;
 
 import me.combatborn.RPGProject;
+import me.combatborn.skills.Rank;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -12,61 +13,68 @@ public class PlayerData {
     private Player player;
     private UUID uuid;
 
-    private int unspentCombatPoints;
-    private int unspentCraftingPoints;
-    private int unspentGatheringPoints;
+    private double level;
+    private Rank combatRank;
+    private Rank gatheringRank;
+    private Rank craftingRank;
 
     public PlayerData(Player player) {
         RPGProject.playerData.put(player.getUniqueId(), this);
+        this.dataLoaded = PlayerDataManager.loadPlayerData(this);
+        this.level = PlayerDataManager.calculatePlayerLevel(this);
         this.player = player;
         this.uuid = player.getUniqueId();
     }
 
-    //Attempts to load all player's data from the SQL
-    public void loadPlayerData() {
-
-        if (this.dataLoaded){
-            //kick the player, they must wait for their data to unload before logging in
-            return;
-        }
-
-
-
-        //data was successfully loaded
-        this.dataLoaded = true;
-
+    public Player getPlayer() {
+        return player;
     }
 
-    //Attempts to store all player's data to the SQL
-    public void storePlayerData() {
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-        //do nothing if data is not loaded
-        if (!this.dataLoaded) {
-            return;
-        }
+    public UUID getUuid() {
+        return uuid;
+    }
 
-        //if server reboot, store all of the data to local files instead
-        //next server startup needs to update the SQL with this data
-        if (RPGProject.reboot) {
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 
+    public double getLevel() {
+        return level;
+    }
 
-        //Otherwise manually store into SQL
-        } else {
+    public Rank getCombatRank() {
+        return combatRank;
+    }
 
+    public void setCombatRank(Rank combatRank) {
+        this.combatRank = combatRank;
+    }
 
-        }
+    public Rank getGatheringRank() {
+        return gatheringRank;
+    }
 
-        //unload complete, clear data from memory if there's no reboot
-        if (!RPGProject.reboot){
-            RPGProject.playerData.remove(this.uuid);
-        }
+    public void setGatheringRank(Rank gatheringRank) {
+        this.gatheringRank = gatheringRank;
+    }
 
-        //data was successfully stored
-        this.dataLoaded = false;
+    public Rank getCraftingRank() {
+        return craftingRank;
+    }
 
+    public void setCraftingRank(Rank craftingRank) {
+        this.craftingRank = craftingRank;
     }
 
     public boolean isDataLoaded() {
         return dataLoaded;
+    }
+
+    public void setDataLoaded(boolean dataLoaded) {
+        this.dataLoaded = dataLoaded;
     }
 }

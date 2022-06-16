@@ -1,9 +1,10 @@
 package me.combatborn;
 
+import me.combatborn.data.LoginListener;
 import me.combatborn.data.PlayerData;
+import me.combatborn.data.PlayerDataManager;
+import me.combatborn.database.MySQL;
 import me.combatborn.items.RPGItem;
-import me.combatborn.skills.Skill;
-import me.combatborn.skills.enums.SkillData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 public final class RPGProject extends JavaPlugin {
 
     public static RPGProject MAIN_CLASS;
+    public static MySQL SQL;
 
     public static boolean reboot = false;
 
@@ -22,8 +24,13 @@ public final class RPGProject extends JavaPlugin {
     @Override
     public void onEnable() {
         MAIN_CLASS = this;
+        SQL = new MySQL("local");
 
         //update SQL to all data found in the local files
+
+//        getCommand("RandomTeleport").setExecutor(new RandomTeleport());
+
+        getServer().getPluginManager().registerEvents(new LoginListener(), this);
 
     }
 
@@ -33,7 +40,7 @@ public final class RPGProject extends JavaPlugin {
 
         //store player data to server local files
         for (UUID uuid : RPGProject.playerData.keySet()) {
-            RPGProject.playerData.get(uuid).storePlayerData();
+            PlayerDataManager.storePlayerData(RPGProject.playerData.get(uuid));
         }
 
     }

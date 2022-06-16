@@ -1,5 +1,6 @@
 package me.combatborn.skills;
 
+import me.combatborn.data.PlayerData;
 import me.combatborn.skills.enums.SkillType;
 import me.combatborn.skills.enums.SkillData;
 
@@ -9,15 +10,16 @@ import java.util.List;
 public class Skill {
 
     private SkillData skillData;
+    private PlayerData playerData;
 
     private int level;
     private int experience;
 
 
-    public Skill(SkillData skillData, int level, int experience){
+    public Skill(SkillData skillData, PlayerData playerData){
         this.skillData = skillData;
-        this.level = level;
-        this.experience = experience;
+        this.playerData = playerData;
+        calculateRankLevel();
     }
 
     public boolean levelUp() {
@@ -28,6 +30,17 @@ public class Skill {
         return true;
     }
 
+    private int calculateRankLevel(){
+        if (this.getSkillType().equals(SkillType.COMBAT)){
+            this.experience = this.playerData.getCombatRank().getExperience();
+        }else if (this.getSkillType().equals(SkillType.GATHERING)){
+
+        }else if (this.getSkillType().equals(SkillType.CRAFTING)){
+
+        }
+        return -1;
+    }
+
     public String getSkillName(){
         return this.skillData.getName();
     }
@@ -36,7 +49,7 @@ public class Skill {
         return this.skillData.getAcronym();
     }
 
-    public boolean isBoolean(){
+    public boolean isElite(){
         return this.skillData.isElite();
     }
 
