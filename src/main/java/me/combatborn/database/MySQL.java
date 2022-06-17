@@ -43,7 +43,7 @@ public class MySQL {
             try {
                 this.connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port +
                         "/" + this.database + "?useSSL=false", this.username, this.password);
-                Bukkit.getLogger().info("[RPG Project] Connected to the \"" + this.type + "\" SQL Server.");
+                Bukkit.getLogger().info("[RPG-Project] Connected to the \"" + this.type + "\" SQL Server.");
             } catch (SQLException e) {
                 Bukkit.getLogger().info("Error establishing SQL Connection.");
                 e.printStackTrace();
@@ -69,10 +69,10 @@ public class MySQL {
         try {
             this.disconnect();
         } catch (Exception e) {
-            Bukkit.getLogger().info("[Yu-Craft] MySQL failed to disconnect.");
+            Bukkit.getLogger().info("[RPG-Project] MySQL failed to disconnect.");
         } finally {
             if (!(this.isConnected())) {
-                Bukkit.getLogger().info("[Yu-Craft] MySQL has been disconnected.");
+                Bukkit.getLogger().info("[RPG-Project] MySQL has been disconnected.");
             }
         }
     }

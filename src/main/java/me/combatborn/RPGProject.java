@@ -17,13 +17,14 @@ public final class RPGProject extends JavaPlugin {
     public static RPGProject MAIN_CLASS;
     public static MySQL SQL;
 
-    public static boolean reboot = false;
+    public static boolean reboot;
 
     public static HashMap<Integer, RPGItem> rpgItems = new HashMap<>();
     public static HashMap<UUID, PlayerData> playerData = new HashMap<>();
 
     @Override
     public void onEnable() {
+        reboot = false;
         MAIN_CLASS = this;
         SQL = new MySQL("local");
 
@@ -38,6 +39,9 @@ public final class RPGProject extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+        // this enables all playerData files to be stored on local files
+        // instead of the SQL to prevent loss of data
         reboot = true;
 
         //store player data to server local files
