@@ -1,24 +1,22 @@
 package me.combatborn;
 
-import me.combatborn.commands.Test;
+import me.combatborn.commands.LevelUp;
+import me.combatborn.commands.Levels;
+import me.combatborn.commands.Stats;
 import me.combatborn.data.LoginListener;
 import me.combatborn.data.PlayerData;
 import me.combatborn.data.PlayerDataManager;
 import me.combatborn.database.MySQL;
 import me.combatborn.items.RPGItem;
+import me.combatborn.skills.enums.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public final class RPGProject extends JavaPlugin {
 
@@ -31,6 +29,8 @@ public final class RPGProject extends JavaPlugin {
     public static HashMap<Integer, RPGItem> rpgItems = new HashMap<>();
     public static HashMap<UUID, PlayerData> playerData = new HashMap<>();
 
+    public static final HashMap<String, SkillType> allSkills = new HashMap<>();
+
     @Override
     public void onEnable() {
         reboot = false;
@@ -39,7 +39,9 @@ public final class RPGProject extends JavaPlugin {
         PLUGINS_FOLDER_PATH = getDataFolder();
 
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
-        getCommand("Test").setExecutor(new Test());
+        getCommand("Stats").setExecutor(new Stats());
+        getCommand("Levels").setExecutor(new Levels());
+        getCommand("LevelUp").setExecutor(new LevelUp());
 
         // store data from all files found within the local files
         retrieveRebootData();
@@ -47,6 +49,11 @@ public final class RPGProject extends JavaPlugin {
         // load all online player's data into memory
         for (Player player : Bukkit.getOnlinePlayers()){
             LoginListener.login(player);
+        }
+
+        // define all skills into a static HashMap
+        for (SkillType skillType : SkillType.values()){
+            RPGProject.allSkills.put(skillType.getName().toLowerCase(Locale.ROOT),skillType);
         }
 
     }

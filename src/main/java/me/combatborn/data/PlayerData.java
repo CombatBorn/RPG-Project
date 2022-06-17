@@ -147,4 +147,15 @@ public class PlayerData {
     public Skill getSkill(SkillType skillType) {
         return this.skills.get(skillType);
     }
+
+    public Rank getRank(RankType rankType){
+        if (rankType.equals(RankType.COMBAT)){
+            return this.combatRank;
+        }else if (rankType.equals(RankType.GATHERING)){
+            return this.gatheringRank;
+        }else if (rankType.equals(RankType.CRAFTING)){
+            return this.craftingRank;
+        }
+        return null;
+    }
 }

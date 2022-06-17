@@ -3,6 +3,7 @@ package me.combatborn.skills;
 import me.combatborn.data.PlayerData;
 import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -56,10 +57,10 @@ public class Skill {
             return true;
         }
 
-        for (SkillType skillType : this.skillType.getRequiredSkills()){
+        for (SkillType skillType : this.skillType.getRequiredSkills()) {
 
             // this will check whether or not they meet the requirement of the skill
-            if (this.playerData.getSkill(skillType).getSkillLevel() < 100){
+            if (this.playerData.getSkill(skillType).getSkillLevel() < 100) {
                 return false;
             }
         }
@@ -68,6 +69,8 @@ public class Skill {
     }
 
     private Rank determineRank() {
+        Bukkit.getLogger().info("The current Skill is: " + this.skillType.getName());
+        Bukkit.getLogger().info("Rank type for the " + this.skillName + " skill is: " + this.skillType.getRankType());
         if (this.skillType.getRankType() == RankType.COMBAT) {
             return this.playerData.getCombatRank();
         } else if (this.skillType.getRankType() == RankType.GATHERING) {
@@ -94,7 +97,7 @@ public class Skill {
         return this.skillType.getRankType();
     }
 
-    public List<SkillType> getRequiredSkills() {
+    public SkillType[] getRequiredSkills() {
         return this.skillType.getRequiredSkills();
     }
 

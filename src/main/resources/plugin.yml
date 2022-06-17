@@ -6,5 +6,10 @@ prefix: RPGP
 authors: [ CombatBorn ]
 description: A RPG Project
 commands:
-  Test:
-    description: A command used to test.
+  Stats:
+    description: Shows your account stats.
+  Levels:
+      description: Shows your account levels.
+  LevelUp:
+      usage: /LevelUp <Skill Name>
+      description: Spend points to level up a desired skill.
