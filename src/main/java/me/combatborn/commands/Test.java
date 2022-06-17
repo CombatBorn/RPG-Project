@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class Test implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -28,18 +30,28 @@ public class Test implements CommandExecutor {
             return false;
         }
 
-        player.sendMessage(player.getDisplayName()+ "'s Stats:");
-        player.sendMessage("  First Join: " + playerData.getFirstLogin().toString());
-        player.sendMessage("  Play Time: " + playerData.getRealPlayTime() + "s");
-        player.sendMessage("  Session Length: " + playerData.getSessionLength() + "s");
-        player.sendMessage("  Combat Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getCombatRank().getExperience() +")");
-        player.sendMessage("  Gathering Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getGatheringRank().getExperience() +")");
-        player.sendMessage("  Crafting Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getCraftingRank().getExperience() +")");
-        player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
-        player.sendMessage("  Boss Kills: " + playerData.getBossKills());
 
-        playerData.displayAllSkillLevels();
 
+        if (args.length > 0){
+            String argument = args[0].toLowerCase(Locale.ROOT);
+            if (argument.equals("magic")){
+                playerData.getSkill(SkillType.MAGIC).applyPoints();
+            }else if (argument.equals("stats")){
+                player.sendMessage(player.getDisplayName()+ "'s Stats:");
+                player.sendMessage("  First Join: " + playerData.getFirstLogin().toString());
+                player.sendMessage("  Play Time: " + playerData.getRealPlayTime() + "s");
+                player.sendMessage("  Session Length: " + playerData.getSessionLength() + "s");
+                player.sendMessage("  Combat Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getCombatRank().getExperience() +") <"+ playerData.getCombatRank().getPoints() +">");
+                player.sendMessage("  Gathering Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getGatheringRank().getExperience() +") <"+ playerData.getGatheringRank().getPoints() +">");
+                player.sendMessage("  Crafting Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getCraftingRank().getExperience() +") <"+ playerData.getCraftingRank().getPoints() +">");
+                player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
+                player.sendMessage("  Boss Kills: " + playerData.getBossKills());
+
+                playerData.displayAllSkillLevels();
+            }else if (argument.equals("experience")){
+                playerData.getCombatRank().addExperience((int)(Math.random() * 1000));
+            }
+        }
         return true;
     }
 }

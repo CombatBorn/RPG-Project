@@ -11,7 +11,7 @@ public enum RankType {
         this.name = name;
     }
 
-    public String getName() {
+    public String getTypeName() {
         return name;
     }
 }

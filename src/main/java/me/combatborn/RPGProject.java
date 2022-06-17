@@ -42,8 +42,12 @@ public final class RPGProject extends JavaPlugin {
         getCommand("Test").setExecutor(new Test());
 
         // store data from all files found within the local files
-
         retrieveRebootData();
+
+        // load all online player's data into memory
+        for (Player player : Bukkit.getOnlinePlayers()){
+            LoginListener.login(player);
+        }
 
     }
 
@@ -101,10 +105,12 @@ public final class RPGProject extends JavaPlugin {
                 // strain on the main thread
                 SQL.getConnection().prepareStatement(sqlData).executeUpdate();
 
-                // data was successfully updated on the database, the local file will now delete
+                // data is no longer need to
                 rebootDataFile.delete();
 
                 totalRetrieved++;
+
+
 
             } catch (SQLException e) {
                 Bukkit.getLogger().info("[RPGProject] There was an error uploading file contents to the database: " + rebootDataFile.getName());

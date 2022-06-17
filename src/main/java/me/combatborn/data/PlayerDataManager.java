@@ -20,7 +20,7 @@ public class PlayerDataManager {
             return -1.0;
         }
 
-        return (data.getCombatRank().getRank() + data.getGatheringRank().getRank() + data.getCraftingRank().getRank()) / 3;
+        return (data.getCombatRank().getRankLevel() + data.getGatheringRank().getRankLevel() + data.getCraftingRank().getRankLevel()) / 3;
     }
 
     //Attempts to store all player's data to the SQL
@@ -39,8 +39,8 @@ public class PlayerDataManager {
         String sqlCommand = "UPDATE `player_data` SET " +
                 "`play_time`=" + data.getPlayTime() + ",`monster_kills`=" + data.getMonsterKills() + ",`boss_kills`=" + data.getBossKills() + "," +
                 "`combat_experience`=" + data.getCombatRank().getExperience() + ",`combat_points`=" + data.getCombatRank().getPoints() + "," +
-                "`gathering_experience`=" + data.getGatheringRank().getExperience() + ",`gathering_points`=" + data.getCombatRank().getPoints() + "," +
-                "`crafting_experience`=" + data.getCraftingRank().getExperience() + ",`crafting_points`=" + data.getCombatRank().getPoints() + "," +
+                "`gathering_experience`=" + data.getGatheringRank().getExperience() + ",`gathering_points`=" + data.getGatheringRank().getPoints() + "," +
+                "`crafting_experience`=" + data.getCraftingRank().getExperience() + ",`crafting_points`=" + data.getCraftingRank().getPoints() + "," +
                 "`health`=" + data.getSkill(SkillType.HEALTH).getSkillLevel() + ",`speed`=" + data.getSkill(SkillType.SPEED).getSkillLevel() + "," +
                 "`melee`=" + data.getSkill(SkillType.MELEE).getSkillLevel() + ",`strength`=" + data.getSkill(SkillType.STRENGTH).getSkillLevel() + "," +
                 "`archery`=" + data.getSkill(SkillType.ARCHERY).getSkillLevel() + ",`precision`=" + data.getSkill(SkillType.PRECISION).getSkillLevel() + "," +
@@ -95,15 +95,15 @@ public class PlayerDataManager {
                 RPGProject.SQL.getConnection().prepareStatement(sqlCommand).executeUpdate();
                 Bukkit.broadcastMessage(data.getPLAYER().getDisplayName() + "'s data successfully stored to the database.");
 
+                // data was successfully stored, clear data from server memory
+                RPGProject.playerData.remove(data.getUUID());
+
             } catch (SQLException e) {
                 Bukkit.broadcastMessage(data.getPLAYER().getDisplayName() + "'s data failed to store to the database.");
                 e.printStackTrace();
             }
 
         }
-
-        // data was successfully stored, clear data from server memory
-        RPGProject.playerData.remove(data.getUUID());
 
     }
 
