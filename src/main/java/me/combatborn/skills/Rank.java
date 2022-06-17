@@ -40,7 +40,7 @@ public class Rank {
         return points;
     }
 
-    public void removeRankPoint(boolean elite) {
+    public void removeRankPoints(boolean elite) {
         if (elite) {
             this.points -= 2;
         } else {

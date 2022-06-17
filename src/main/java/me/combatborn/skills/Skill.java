@@ -3,11 +3,8 @@ package me.combatborn.skills;
 import me.combatborn.data.PlayerData;
 import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -32,7 +29,7 @@ public class Skill {
         this.player = playerData.getPLAYER();
     }
 
-    public boolean levelUp() {
+    public boolean applyPoints() {
         if (this.skillLevel == 100) {
             return false;
         }
@@ -42,13 +39,13 @@ public class Skill {
             return false;
         }
 
-        // if the player doesn't have enough points
+        // checks if player has enough points to level the skill
         if ((this.eliteSkill && this.rank.getPoints() < 2) || this.rank.getPoints() < 1) {
             player.sendMessage("You don't have enough points to level up the " + this.skillName + " skill.");
             return false;
         }
         this.skillLevel++;
-        this.rank.removeRankPoint(this.eliteSkill);
+        this.rank.removeRankPoints(this.eliteSkill);
         player.sendMessage("Level up! Reached " + this.skillName + " skill level " + this.skillLevel);
         return true;
     }

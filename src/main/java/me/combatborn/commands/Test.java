@@ -33,9 +33,9 @@ public class Test implements CommandExecutor {
 
         playerData.displayAllSkillLevels();
 
-        playerData.getSkill(SkillType.MAGIC).levelUp();
+        playerData.getSkill(SkillType.MAGIC).applyPoints();
 
-        playerData.getSkill(SkillType.DARKMAGIC).levelUp();
+        playerData.getSkill(SkillType.DARKMAGIC).applyPoints();
 
 
 
