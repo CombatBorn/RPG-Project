@@ -52,10 +52,9 @@ public class LoginListener implements Listener {
         if (!RPGProject.hasPlayerData(player)) {
             return;
         }
-        PlayerData playerData = RPGProject.getPlayerData(player);
 
         // store data to SQL
-        PlayerDataManager.storePlayerData(playerData);
+        PlayerDataManager.storePlayerData(RPGProject.getPlayerData(player));
 
     }
 }

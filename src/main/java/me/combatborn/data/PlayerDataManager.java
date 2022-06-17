@@ -28,6 +28,10 @@ public class PlayerDataManager {
             return;
         }
 
+        // calculate total time spent online
+        Bukkit.getLogger().info(data.getPLAYER().getDisplayName() + " was online for " + data.getSessionLength() + "s");
+        data.updatePlayTime();
+
         // if server reboot, store all of the data to local files instead
         // next server startup needs to update the SQL with this data
         if (RPGProject.reboot) {

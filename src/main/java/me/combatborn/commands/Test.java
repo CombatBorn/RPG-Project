@@ -22,11 +22,14 @@ public class Test implements CommandExecutor {
         PlayerData playerData = RPGProject.getPlayerData(player);
         player.sendMessage(player.getDisplayName()+ "'s Stats:");
         player.sendMessage("  First Join: " + playerData.getFirstLogin().toString());
+        player.sendMessage("  Play Time: " + playerData.getRealPlayTime() + "s");
+        player.sendMessage("  Session Length: " + playerData.getSessionLength() + "s");
         player.sendMessage("  Combat Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getCombatRank().getExperience() +")");
         player.sendMessage("  Gathering Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getGatheringRank().getExperience() +")");
         player.sendMessage("  Crafting Level: " + playerData.getCombatRank().getRank() + " ("+ playerData.getCraftingRank().getExperience() +")");
         player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
         player.sendMessage("  Boss Kills: " + playerData.getBossKills());
+
 
         playerData.displayAllSkillLevels();
 

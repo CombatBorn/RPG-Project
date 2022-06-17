@@ -5,7 +5,6 @@ import me.combatborn.skills.Rank;
 import me.combatborn.skills.Skill;
 import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
@@ -29,12 +28,16 @@ public class PlayerData {
     private int monsterKills;
     private int bossKills;
 
+    // needed to find out the time spent online
+    private int loginTime;
+
     private final HashMap<SkillType, Skill> skills = new HashMap<>();
 
     public PlayerData(Player player) {
         RPGProject.playerData.put(player.getUniqueId(), this);
         this.PLAYER = player;
         this.UUID = player.getUniqueId();
+        this.loginTime = (int) (System.currentTimeMillis() / 1000);
 
         // retrieve the player's SQL data and load it to server memory
         this.dataLoaded = loadPlayerData(PlayerDataManager.retrieveSQLData(this));
@@ -72,12 +75,25 @@ public class PlayerData {
         }
     }
 
-    public void displayAllSkillLevels(){
+    public void displayAllSkillLevels() {
         ArrayList<String> levels = new ArrayList<>();
         for (SkillType skillType : SkillType.values()) {
             levels.add(skillType.getName() + "[" + skills.get(skillType).getSkillLevel() + "]");
         }
         this.PLAYER.sendMessage(this.PLAYER.getDisplayName() + "'s Levels: " + levels);
+    }
+
+    // how long the player has been online in seconds
+    public int getSessionLength() {
+        return (int) (System.currentTimeMillis() / 1000 - this.loginTime);
+    }
+
+    public int getRealPlayTime() {
+        return this.playTime + getSessionLength();
+    }
+
+    public void updatePlayTime() {
+        this.playTime += getSessionLength();
     }
 
     public Player getPLAYER() {
@@ -104,10 +120,6 @@ public class PlayerData {
         return craftingRank;
     }
 
-    public Date getFirstLogin() {
-        return firstLogin;
-    }
-
     public boolean isDataLoaded() {
         return dataLoaded;
     }
@@ -120,11 +132,19 @@ public class PlayerData {
         return bossKills;
     }
 
-    public int getPlayTime() {
+    public Date getFirstLogin() {
+        return firstLogin;
+    }
+
+    public double getPlayTime() {
         return playTime;
     }
 
-    public Skill getSkill(SkillType skillType){
+    public double getLoginTime() {
+        return loginTime;
+    }
+
+    public Skill getSkill(SkillType skillType) {
         return this.skills.get(skillType);
     }
 }
