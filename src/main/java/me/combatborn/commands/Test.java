@@ -19,7 +19,15 @@ public class Test implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
+
+        // player will be kicked if server fails to retrieve their playerData
         PlayerData playerData = RPGProject.getPlayerData(player);
+
+        // player's data was not found
+        if (playerData == null){
+            return false;
+        }
+
         player.sendMessage(player.getDisplayName()+ "'s Stats:");
         player.sendMessage("  First Join: " + playerData.getFirstLogin().toString());
         player.sendMessage("  Play Time: " + playerData.getRealPlayTime() + "s");
@@ -30,14 +38,7 @@ public class Test implements CommandExecutor {
         player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
         player.sendMessage("  Boss Kills: " + playerData.getBossKills());
 
-
         playerData.displayAllSkillLevels();
-
-        playerData.getSkill(SkillType.MAGIC).applyPoints();
-
-        playerData.getSkill(SkillType.DARKMAGIC).applyPoints();
-
-
 
         return true;
     }

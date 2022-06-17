@@ -33,7 +33,7 @@ public class MySQL {
 
     public boolean isConnected(String type) {
         if (type != null && this.connection == null) {
-            Bukkit.getLogger().info("Unable to load " + type + ", the SQL database not connected.");
+            Bukkit.getLogger().info("[RPGProject] Unable to load " + type + ", the SQL database not connected");
         }
         return (this.connection != null);
     }
@@ -43,9 +43,9 @@ public class MySQL {
             try {
                 this.connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port +
                         "/" + this.database + "?useSSL=false", this.username, this.password);
-                Bukkit.getLogger().info("[RPG-Project] Connected to the \"" + this.type + "\" SQL Server.");
+                Bukkit.getLogger().info("[RPGProject] Connected to the \"" + this.type + "\" SQL Server");
             } catch (SQLException e) {
-                Bukkit.getLogger().info("Error establishing SQL Connection.");
+                Bukkit.getLogger().info("Error establishing SQL Connection");
                 e.printStackTrace();
             }
         }
@@ -69,10 +69,10 @@ public class MySQL {
         try {
             this.disconnect();
         } catch (Exception e) {
-            Bukkit.getLogger().info("[RPG-Project] MySQL failed to disconnect.");
+            Bukkit.getLogger().info("[RPGProject] MySQL failed to disconnect");
         } finally {
             if (!(this.isConnected())) {
-                Bukkit.getLogger().info("[RPG-Project] MySQL has been disconnected.");
+                Bukkit.getLogger().info("[RPGProject] MySQL has been disconnected");
             }
         }
     }

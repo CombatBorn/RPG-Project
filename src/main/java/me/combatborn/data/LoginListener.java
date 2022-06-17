@@ -47,14 +47,18 @@ public class LoginListener implements Listener {
             return;
         }
 
-        // if player's data is not found, there should be no data to save
         Player player = event.getPlayer();
-        if (!RPGProject.hasPlayerData(player)) {
+
+        // player will be kicked if server fails to retrieve their playerData
+        PlayerData playerData = RPGProject.getPlayerData(player);
+
+        // if player's data is not found, there should be no data to save
+        if (playerData == null){
             return;
         }
 
         // store data to SQL
-        PlayerDataManager.storePlayerData(RPGProject.getPlayerData(player));
+        PlayerDataManager.storePlayerData(playerData);
 
     }
 }
