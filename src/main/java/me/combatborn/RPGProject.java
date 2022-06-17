@@ -12,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,9 +81,10 @@ public final class RPGProject extends JavaPlugin {
 
             try {
 
+                // the Scanner allows the file contents to be stored to the sqlData String
                 scanner = new Scanner(rebootDataFile);
                 sqlData = scanner.nextLine();
-                rebootDataFile.delete();
+                scanner.close();
 
             } catch (FileNotFoundException e) {
 
@@ -98,15 +101,14 @@ public final class RPGProject extends JavaPlugin {
                 // strain on the main thread
                 SQL.getConnection().prepareStatement(sqlData).executeUpdate();
 
+                // data was successfully updated on the database, the local file will now delete
+                rebootDataFile.delete();
+
                 totalRetrieved++;
 
             } catch (SQLException e) {
                 Bukkit.getLogger().info("[RPGProject] There was an error uploading file contents to the database: " + rebootDataFile.getName());
             }
-        }
-
-        if (scanner != null) {
-            scanner.close();
         }
 
         if (totalRetrieved > 0) {
