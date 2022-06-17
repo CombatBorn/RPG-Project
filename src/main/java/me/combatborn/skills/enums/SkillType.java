@@ -7,35 +7,35 @@ public enum SkillType {
     // normal skills
 
     // combat rank
-    HEALTH("Health", "HP", RankType.COMBAT, false),
-    SPEED("Speed", "SPE", RankType.COMBAT, false),
-    MELEE("Melee", "MEL", RankType.COMBAT, false),
-    STRENGTH("Strength", "STR", RankType.COMBAT, false),
-    ARCHERY("Archery", "ARCH", RankType.COMBAT, false),
-    PRECISION("Precision", "PRE", RankType.COMBAT, false),
-    MAGIC("Magic", "MAG", RankType.COMBAT, false),
-    FOCUS("Focus", "FOC", RankType.COMBAT, false),
+    HEALTH("Health", "HP", RankType.COMBAT, false, null),
+    SPEED("Speed", "SPE", RankType.COMBAT, false, null),
+    MELEE("Melee", "MEL", RankType.COMBAT, false, null),
+    STRENGTH("Strength", "STR", RankType.COMBAT, false, null),
+    ARCHERY("Archery", "ARCH", RankType.COMBAT, false, null),
+    PRECISION("Precision", "PRE", RankType.COMBAT, false, null),
+    MAGIC("Magic", "MAG", RankType.COMBAT, false, null),
+    FOCUS("Focus", "FOC", RankType.COMBAT, false, null),
 
     // gathering rank
-    THIEVING("Thieving", "THI", RankType.GATHERING, false),
-    TAMING("Taming", "TAM", RankType.GATHERING, false),
-    HUNTING("Hunting", "HUNT", RankType.GATHERING, false),
-    FISHING("Fishing", "FISH", RankType.GATHERING, false),
-    MINING("Mining", "MIN", RankType.GATHERING, false),
-    LUMBERJACKING("Lumberjacking", "LUM", RankType.GATHERING, false),
-    FARMING("Farming", "FARM", RankType.GATHERING, false),
-    ENCHANTING("Enchanting", "ENCH", RankType.GATHERING, false),
+    THIEVING("Thieving", "THI", RankType.GATHERING, false, null),
+    TAMING("Taming", "TAM", RankType.GATHERING, false, null),
+    HUNTING("Hunting", "HUNT", RankType.GATHERING, false, null),
+    FISHING("Fishing", "FISH", RankType.GATHERING, false, null),
+    MINING("Mining", "MIN", RankType.GATHERING, false, null),
+    LUMBERJACKING("Lumberjacking", "LUM", RankType.GATHERING, false, null),
+    FARMING("Farming", "FARM", RankType.GATHERING, false, null),
+    ENCHANTING("Enchanting", "ENCH", RankType.GATHERING, false, null),
 
     // crafting rank
-    FORGING("Forging", "FOR", RankType.CRAFTING, false),
-    LEATHERWORKING("Leatherworking", "LEAW", RankType.CRAFTING, false),
-    WOODWORKING("Woodworking", "WOOW", RankType.CRAFTING, false),
-    WEAVING("Weaving", "WEA", RankType.CRAFTING, false),
-    COOKING("Cooking", "COO", RankType.CRAFTING, false),
-    FIRECREATION("Firecreation", "FIRC", RankType.CRAFTING, false),
-    GLASSBLOWING("Glassblowing", "GLAB", RankType.CRAFTING, false),
-    CRYSTALREADING("Crystalreading", "CRYR", RankType.CRAFTING, false),
-    BUILDING("Building", "BUI", RankType.CRAFTING, false),
+    FORGING("Forging", "FOR", RankType.CRAFTING, false, null),
+    LEATHERWORKING("Leatherworking", "LEAW", RankType.CRAFTING, false, null),
+    WOODWORKING("Woodworking", "WOOW", RankType.CRAFTING, false, null),
+    WEAVING("Weaving", "WEA", RankType.CRAFTING, false, null),
+    COOKING("Cooking", "COO", RankType.CRAFTING, false, null),
+    FIRECREATION("Firecreation", "FIRC", RankType.CRAFTING, false, null),
+    GLASSBLOWING("Glassblowing", "GLAB", RankType.CRAFTING, false, null),
+    CRYSTALREADING("Crystalreading", "CRYR", RankType.CRAFTING, false, null),
+    BUILDING("Building", "BUI", RankType.CRAFTING, false, null),
 
     // elite skills
 
@@ -60,9 +60,9 @@ public enum SkillType {
     private final String acronym;
     private final boolean elite;
     private final RankType rankType;
-    private final List<SkillType>[] requiredSkills;
+    private final List<SkillType> requiredSkills;
 
-    SkillType(String name, String acronym, RankType rankType, boolean elite, List<SkillType>... requriedSkills) {
+    SkillType(String name, String acronym, RankType rankType, boolean elite, List<SkillType> requriedSkills) {
         this.name = name;
         this.acronym = acronym;
         this.rankType = rankType;
@@ -86,7 +86,7 @@ public enum SkillType {
         return rankType;
     }
 
-    public List<SkillType>[] getRequiredSkills(){
+    public List<SkillType> getRequiredSkills(){
         return this.requiredSkills;
     }
 }
