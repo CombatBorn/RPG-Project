@@ -2,9 +2,9 @@ package me.combatborn.skills.enums;
 
 import java.util.List;
 
-public enum SkillData {
+public enum SkillType {
 
-    //normal skills
+    // normal skills
 
     // combat rank
     HEALTH("Health", "HP", RankType.COMBAT, false),
@@ -37,31 +37,32 @@ public enum SkillData {
     CRYSTALREADING("Crystalreading", "CRYR", RankType.CRAFTING, false),
     BUILDING("Building", "BUI", RankType.CRAFTING, false),
 
-    //elite skills
+    // elite skills
 
     // crafting rank
-    ALCHEMY("Alchemy", "ALC", RankType.CRAFTING, true, List.of(SkillData.COOKING)),
-    DIVINECREATION("Divinecreation", "DIVC", RankType.CRAFTING, true, List.of(SkillData.PRECISION, SkillData.WEAVING, SkillData.LEATHERWORKING)),
-    INFERNALFORGING("Infernalforging", "INFF", RankType.CRAFTING, true, List.of(SkillData.STRENGTH, SkillData.FIRECREATION, SkillData.FORGING)),
-    SOULCRAFTING("Soulcrafting", "SOCR", RankType.CRAFTING, true, List.of(SkillData.FOCUS, SkillData.CRYSTALREADING, SkillData.GLASSBLOWING)),
+    ALCHEMY("Alchemy", "ALC", RankType.CRAFTING, true, List.of(SkillType.COOKING)),
+    DIVINECREATION("Divinecreation", "DIVC", RankType.CRAFTING, true, List.of(SkillType.PRECISION, SkillType.WEAVING, SkillType.LEATHERWORKING)),
+    INFERNALFORGING("Infernalforging", "INFF", RankType.CRAFTING, true, List.of(SkillType.STRENGTH, SkillType.FIRECREATION, SkillType.FORGING)),
+    SOULCRAFTING("Soulcrafting", "SOCR", RankType.CRAFTING, true, List.of(SkillType.FOCUS, SkillType.CRYSTALREADING, SkillType.GLASSBLOWING)),
 
     // gathering rank
-    DEEPFISHING("Deepfishing", "DEPF", RankType.GATHERING, true, List.of(SkillData.FISHING, SkillData.HEALTH)),
-    BREEDING("Breeding", "BRE", RankType.GATHERING, true, List.of(SkillData.ARCHERY, SkillData.TAMING)),
-    SOULCAPTURING("Soulcapturing", "SOCA", RankType.GATHERING, true, List.of(SkillData.MAGIC, SkillData.HUNTING, SkillData.THIEVING)),
+    DEEPFISHING("Deepfishing", "DEPF", RankType.GATHERING, true, List.of(SkillType.FISHING, SkillType.HEALTH)),
+    BREEDING("Breeding", "BRE", RankType.GATHERING, true, List.of(SkillType.ARCHERY, SkillType.TAMING)),
+    SOULCAPTURING("Soulcapturing", "SOCA", RankType.GATHERING, true, List.of(SkillType.MAGIC, SkillType.HUNTING, SkillType.THIEVING)),
 
     // combat rank
-    CLOAKING("Cloaking", "CLO", RankType.COMBAT, true, List.of(SkillData.SPEED, SkillData.THIEVING)),
-    TRANSCRIPTING("Transcripting", "TRA", RankType.COMBAT, true, List.of(SkillData.PRECISION, SkillData.FOCUS)),
-    DARKMAGIC("Darkmagic", "DMAG", RankType.COMBAT, true, List.of(SkillData.MAGIC, SkillData.ENCHANTING, SkillData.SPEED)),
-    SUMMONING("Summoning", "SUM", RankType.COMBAT, true, List.of(SkillData.DARKMAGIC, SkillData.SOULCAPTURING, SkillData.SOULCRAFTING));
+    CLOAKING("Cloaking", "CLO", RankType.COMBAT, true, List.of(SkillType.SPEED, SkillType.THIEVING)),
+    TRANSCRIPTING("Transcripting", "TRA", RankType.COMBAT, true, List.of(SkillType.PRECISION, SkillType.FOCUS)),
+    DARKMAGIC("Darkmagic", "DMAG", RankType.COMBAT, true, List.of(SkillType.MAGIC, SkillType.ENCHANTING, SkillType.SPEED)),
+    SUMMONING("Summoning", "SUM", RankType.COMBAT, true, List.of(SkillType.DARKMAGIC, SkillType.SOULCAPTURING, SkillType.SOULCRAFTING));
 
-    private String name, acronym;
-    private boolean elite;
-    private RankType rankType;
-    private List<SkillData> requiredSkills[];
+    private final String name;
+    private final String acronym;
+    private final boolean elite;
+    private final RankType rankType;
+    private final List<SkillType>[] requiredSkills;
 
-    SkillData(String name, String acronym, RankType rankType, boolean elite, List<SkillData>... requriedSkills) {
+    SkillType(String name, String acronym, RankType rankType, boolean elite, List<SkillType>... requriedSkills) {
         this.name = name;
         this.acronym = acronym;
         this.rankType = rankType;
@@ -85,7 +86,7 @@ public enum SkillData {
         return rankType;
     }
 
-    public List<SkillData>[] getRequiredSkills(){
+    public List<SkillType>[] getRequiredSkills(){
         return this.requiredSkills;
     }
 }

@@ -1,7 +1,7 @@
 package me.combatborn.data;
 
 import me.combatborn.RPGProject;
-import me.combatborn.skills.enums.SkillData;
+import me.combatborn.skills.enums.SkillType;
 import org.bukkit.Bukkit;
 
 import java.sql.ResultSet;
@@ -41,56 +41,32 @@ public class PlayerDataManager {
             // will add to separate thread with a queue system to prevent
             // strain on the main thread
 
-            Bukkit.getLogger().info("UPDATE `player_data` SET " +
-                    "`play_time`=" + data.getPlayTime() + ",`monster_kills`=" + data.getMonsterKills() + ",`boss_kills`=" + data.getBossKills() + "," +
-                    "`combat_experience`=" + data.getCombatRank().getExperience() + ",`combat_points`=" + data.getCombatRank().getPoints() + "," +
-                    "`gathering_experience`=" + data.getGatheringRank().getExperience() + ",`gathering_points`=" + data.getCombatRank().getPoints() + "," +
-                    "`crafting_experience`=" + data.getCraftingRank().getExperience() + ",`crafting_points`=" + data.getCombatRank().getPoints() + "," +
-                    "`health`=" + data.getSkill(SkillData.HEALTH).getSkillLevel() + ",`speed`=" + data.getSkill(SkillData.SPEED).getSkillLevel() + "," +
-                    "`melee`=" + data.getSkill(SkillData.MELEE).getSkillLevel() + ",`strength`=" + data.getSkill(SkillData.STRENGTH).getSkillLevel() + "," +
-                    "`archery`=" + data.getSkill(SkillData.ARCHERY).getSkillLevel() + ",`precision`=" + data.getSkill(SkillData.PRECISION).getSkillLevel() + "," +
-                    "`magic`=" + data.getSkill(SkillData.MAGIC).getSkillLevel() + ",`focus`=" + data.getSkill(SkillData.FOCUS).getSkillLevel() + "," +
-                    "`cloaking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`transcripting`=" + data.getSkill(SkillData.TRANSCRIPTING).getSkillLevel() + "," +
-                    "`darkmagic`=" + data.getSkill(SkillData.DARKMAGIC).getSkillLevel() + ",`summoning`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`thieving`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`taming`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`hunting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`fishing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`mining`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`lumberjacking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`farming`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`enchanting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`deepfishing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`breeding`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`soulcapturing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`forging`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`leatherworking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`woodworking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`weaving`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`cooking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`firecreation`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`glassblowing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`crystalreading`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`building`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`alchemy`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`divinecreation`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                    "`infernalforging`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`soulcrafting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + " " +
-                    "WHERE uuid=`\"" + data.getUUID().toString() + "\"`");
-
             try {
+
                 RPGProject.SQL.getConnection().prepareStatement("UPDATE `player_data` SET " +
                         "`play_time`=" + data.getPlayTime() + ",`monster_kills`=" + data.getMonsterKills() + ",`boss_kills`=" + data.getBossKills() + "," +
                         "`combat_experience`=" + data.getCombatRank().getExperience() + ",`combat_points`=" + data.getCombatRank().getPoints() + "," +
                         "`gathering_experience`=" + data.getGatheringRank().getExperience() + ",`gathering_points`=" + data.getCombatRank().getPoints() + "," +
                         "`crafting_experience`=" + data.getCraftingRank().getExperience() + ",`crafting_points`=" + data.getCombatRank().getPoints() + "," +
-                        "`health`=" + data.getSkill(SkillData.HEALTH).getSkillLevel() + ",`speed`=" + data.getSkill(SkillData.SPEED).getSkillLevel() + "," +
-                        "`melee`=" + data.getSkill(SkillData.MELEE).getSkillLevel() + ",`strength`=" + data.getSkill(SkillData.STRENGTH).getSkillLevel() + "," +
-                        "`archery`=" + data.getSkill(SkillData.ARCHERY).getSkillLevel() + ",`precision`=" + data.getSkill(SkillData.PRECISION).getSkillLevel() + "," +
-                        "`magic`=" + data.getSkill(SkillData.MAGIC).getSkillLevel() + ",`focus`=" + data.getSkill(SkillData.FOCUS).getSkillLevel() + "," +
-                        "`cloaking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`transcripting`=" + data.getSkill(SkillData.TRANSCRIPTING).getSkillLevel() + "," +
-                        "`darkmagic`=" + data.getSkill(SkillData.DARKMAGIC).getSkillLevel() + ",`summoning`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`thieving`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`taming`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`hunting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`fishing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`mining`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`lumberjacking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`farming`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`enchanting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`deepfishing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`breeding`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`soulcapturing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`forging`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`leatherworking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`woodworking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`weaving`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`cooking`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`firecreation`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`glassblowing`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`crystalreading`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`building`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`alchemy`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`divinecreation`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + "," +
-                        "`infernalforging`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + ",`soulcrafting`=" + data.getSkill(SkillData.CLOAKING).getSkillLevel() + " " +
-                        "WHERE uuid=`\"" + data.getUUID().toString() + "\"`");
+                        "`health`=" + data.getSkill(SkillType.HEALTH).getSkillLevel() + ",`speed`=" + data.getSkill(SkillType.SPEED).getSkillLevel() + "," +
+                        "`melee`=" + data.getSkill(SkillType.MELEE).getSkillLevel() + ",`strength`=" + data.getSkill(SkillType.STRENGTH).getSkillLevel() + "," +
+                        "`archery`=" + data.getSkill(SkillType.ARCHERY).getSkillLevel() + ",`precision`=" + data.getSkill(SkillType.PRECISION).getSkillLevel() + "," +
+                        "`magic`=" + data.getSkill(SkillType.MAGIC).getSkillLevel() + ",`focus`=" + data.getSkill(SkillType.FOCUS).getSkillLevel() + "," +
+                        "`cloaking`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`transcripting`=" + data.getSkill(SkillType.TRANSCRIPTING).getSkillLevel() + "," +
+                        "`darkmagic`=" + data.getSkill(SkillType.DARKMAGIC).getSkillLevel() + ",`summoning`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`thieving`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`taming`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`hunting`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`fishing`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`mining`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`lumberjacking`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`farming`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`enchanting`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`deepfishing`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`breeding`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`soulcapturing`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`forging`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`leatherworking`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`woodworking`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`weaving`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`cooking`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`firecreation`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`glassblowing`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`crystalreading`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`building`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`alchemy`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`divinecreation`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + "," +
+                        "`infernalforging`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + ",`soulcrafting`=" + data.getSkill(SkillType.CLOAKING).getSkillLevel() + " " +
+                        "WHERE uuid=\"" + data.getUUID().toString() + "\"").executeUpdate();
                 Bukkit.broadcastMessage(data.getPLAYER().getDisplayName() + "'s data successfully stored to the database.");
             } catch (SQLException e) {
                 e.printStackTrace();

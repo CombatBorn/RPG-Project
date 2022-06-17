@@ -2,7 +2,7 @@ package me.combatborn.skills;
 
 import me.combatborn.data.PlayerData;
 import me.combatborn.skills.enums.RankType;
-import me.combatborn.skills.enums.SkillData;
+import me.combatborn.skills.enums.SkillType;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Skill {
 
-    private SkillData skillData;
+    private SkillType skillType;
     private PlayerData playerData;
     private Rank rank;
     private Player player;
@@ -19,10 +19,10 @@ public class Skill {
 
     private int skillLevel;
 
-    public Skill(SkillData skillData, PlayerData playerData, int skillLevel) {
-        this.skillData = skillData;
-        this.skillName = this.skillData.getName();
-        this.eliteSkill = this.skillData.isElite();
+    public Skill(SkillType skillType, PlayerData playerData, int skillLevel) {
+        this.skillType = skillType;
+        this.skillName = this.skillType.getName();
+        this.eliteSkill = this.skillType.isElite();
         this.skillLevel = skillLevel;
         this.playerData = playerData;
         this.rank = determineRank();
@@ -35,10 +35,10 @@ public class Skill {
         }
 
         // if the player doesn't have enough points
-//        if ((this.eliteSkill && this.rank.getPoints() < 2) || this.rank.getPoints() < 1) {
-//            player.sendMessage("You don't have enough points to level up the " + this.skillName + " skill");
-//            return false;
-//        }
+        if ((this.eliteSkill && this.rank.getPoints() < 2) || this.rank.getPoints() < 1) {
+            player.sendMessage("You don't have enough points to level up the " + this.skillName + " skill");
+            return false;
+        }
         this.skillLevel++;
         this.rank.removeRankPoint(this.eliteSkill);
         player.sendMessage("Level up! Reached " + this.skillName + " skill level " + this.skillLevel);
@@ -46,34 +46,34 @@ public class Skill {
     }
 
     private Rank determineRank() {
-        if (this.skillData.getRankType() == RankType.COMBAT) {
+        if (this.skillType.getRankType() == RankType.COMBAT) {
             return this.playerData.getCombatRank();
-        } else if (this.skillData.getRankType() == RankType.GATHERING) {
+        } else if (this.skillType.getRankType() == RankType.GATHERING) {
             return this.playerData.getGatheringRank();
-        } else if (this.skillData.getRankType() == RankType.CRAFTING) {
+        } else if (this.skillType.getRankType() == RankType.CRAFTING) {
             return this.playerData.getCraftingRank();
         }
         return null;
     }
 
     public String getSkillName() {
-        return this.skillData.getName();
+        return this.skillType.getName();
     }
 
     public String getSkillAcronym() {
-        return this.skillData.getAcronym();
+        return this.skillType.getAcronym();
     }
 
     public boolean isElite() {
-        return this.skillData.isElite();
+        return this.skillType.isElite();
     }
 
     public RankType getSkillType() {
-        return this.skillData.getRankType();
+        return this.skillType.getRankType();
     }
 
-    public List<SkillData>[] getRequiredSkills() {
-        return this.skillData.getRequiredSkills();
+    public List<SkillType>[] getRequiredSkills() {
+        return this.skillType.getRequiredSkills();
     }
 
     public int getSkillLevel() {

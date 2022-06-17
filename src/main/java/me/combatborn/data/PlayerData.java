@@ -4,15 +4,13 @@ import me.combatborn.RPGProject;
 import me.combatborn.skills.Rank;
 import me.combatborn.skills.Skill;
 import me.combatborn.skills.enums.RankType;
-import me.combatborn.skills.enums.SkillData;
+import me.combatborn.skills.enums.SkillType;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerData {
 
@@ -31,7 +29,7 @@ public class PlayerData {
     private int monsterKills;
     private int bossKills;
 
-    private final HashMap<SkillData, Skill> skills = new HashMap<>();
+    private final HashMap<SkillType, Skill> skills = new HashMap<>();
 
     public PlayerData(Player player) {
         RPGProject.playerData.put(player.getUniqueId(), this);
@@ -50,17 +48,21 @@ public class PlayerData {
         if (results == null) {
             return false;
         }
+
+        // define member variables based on data retrieved from the SQL
         try {
             this.firstLogin = results.getDate("first_login");
+            this.playTime = results.getInt("play_time");
             this.monsterKills = results.getInt("monster_kills");
             this.bossKills = results.getInt("boss_kills");
             this.combatRank = new Rank(this, RankType.COMBAT, results.getInt("combat_experience"), results.getInt("combat_points"));
             this.gatheringRank = new Rank(this, RankType.GATHERING, results.getInt("gathering_experience"), results.getInt("gathering_points"));
             this.craftingRank = new Rank(this, RankType.CRAFTING, results.getInt("crafting_experience"), results.getInt("crafting_points"));
 
-            for (SkillData skillData : SkillData.values()) {
-                skills.put(skillData, new Skill(skillData, this, results.getInt(skillData.getName().toLowerCase(Locale.ROOT))));
-                PLAYER.sendMessage("Loaded skill " + skillData.getName() + " level: " + skills.get(skillData).getSkillLevel());
+            // stores an instance of each skill as an object in a hashmap
+            // easily access the instance through using the proper SkillType enum
+            for (SkillType skillType : SkillType.values()) {
+                skills.put(skillType, new Skill(skillType, this, results.getInt(skillType.getName().toLowerCase(Locale.ROOT))));
             }
 
             return true;
@@ -68,6 +70,14 @@ public class PlayerData {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void displayAllSkillLevels(){
+        ArrayList<String> levels = new ArrayList<>();
+        for (SkillType skillType : SkillType.values()) {
+            levels.add(skillType.getName() + "[" + skills.get(skillType).getSkillLevel() + "]");
+        }
+        this.PLAYER.sendMessage(this.PLAYER.getDisplayName() + "'s Levels: " + levels);
     }
 
     public Player getPLAYER() {
@@ -114,7 +124,7 @@ public class PlayerData {
         return playTime;
     }
 
-    public Skill getSkill(SkillData skillData){
-        return this.skills.get(skillData);
+    public Skill getSkill(SkillType skillType){
+        return this.skills.get(skillType);
     }
 }

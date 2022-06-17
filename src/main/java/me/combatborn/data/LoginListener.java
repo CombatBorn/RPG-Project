@@ -1,12 +1,9 @@
 package me.combatborn.data;
 
 import me.combatborn.RPGProject;
-import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerCommandEvent;
@@ -16,7 +13,7 @@ import java.util.UUID;
 
 public class LoginListener implements Listener {
 
-    // temporary, move later
+    // temporary listener, move later
     @EventHandler
     public void reworkReload(ServerCommandEvent event){
         if (event.getCommand().toLowerCase(Locale.ROOT).equals("rl")) {
@@ -24,8 +21,7 @@ public class LoginListener implements Listener {
         }
     }
 
-
-    //retrieve data from the SQL and store to the PlayerData object
+    // retrieve data from the SQL and store to the PlayerData object
     @EventHandler
     public void login(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -58,7 +54,7 @@ public class LoginListener implements Listener {
         }
         PlayerData playerData = RPGProject.getPlayerData(player);
 
-        //store data to SQL
+        // store data to SQL
         PlayerDataManager.storePlayerData(playerData);
 
     }

@@ -2,7 +2,7 @@ package me.combatborn.commands;
 
 import me.combatborn.RPGProject;
 import me.combatborn.data.PlayerData;
-import me.combatborn.skills.enums.SkillData;
+import me.combatborn.skills.enums.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,7 +28,11 @@ public class Test implements CommandExecutor {
         player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
         player.sendMessage("  Boss Kills: " + playerData.getBossKills());
 
-        playerData.getSkill(SkillData.MAGIC).levelUp();
+        playerData.displayAllSkillLevels();
+
+        playerData.getSkill(SkillType.MAGIC).levelUp();
+
+        playerData.getSkill(SkillType.DARKMAGIC).levelUp();
 
 
 
