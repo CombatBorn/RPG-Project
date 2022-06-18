@@ -1,33 +1,32 @@
 package me.combatborn.skills.enums;
 
-import java.util.HashMap;
-import java.util.List;
+import me.combatborn.RPGProject;
 
 public enum RankType {
-    COMBAT("Combat", SkillType.HEALTH, SkillType.SPEED, SkillType.MELEE,
-            SkillType.STRENGTH, SkillType.ARCHERY, SkillType.PRECISION, SkillType.MAGIC,
-            SkillType.FOCUS, SkillType.CLOAKING, SkillType.TRANSCRIPTING, SkillType.DARKMAGIC,
-            SkillType.SUMMONING),
-    GATHERING("Gathering", SkillType.THIEVING, SkillType.TAMING, SkillType.HUNTING,
-            SkillType.FISHING, SkillType.MINING, SkillType.LUMBERJACKING, SkillType.FARMING,
-            SkillType.ENCHANTING, SkillType.DEEPFISHING, SkillType.BREEDING, SkillType.SOULCAPTURING),
-    CRAFTING("Crafting", SkillType.FORGING, SkillType.LEATHERWORKING,
-            SkillType.WOODWORKING, SkillType.WEAVING, SkillType.COOKING, SkillType.FIRECREATION,
-            SkillType.GLASSBLOWING, SkillType.CRYSTALREADING, SkillType.BUILDING, SkillType.ALCHEMY,
-            SkillType.DIVINECREATION, SkillType.INFERNALFORGING, SkillType.SOULCRAFTING);
+    COMBAT("Combat"),
+    GATHERING("Gathering"),
+    CRAFTING("Crafting");
 
-    String typeName;
+    String name;
     SkillType[] skillTypes;
 
-    RankType(String typeName, SkillType...allSkills) {
-        this.typeName = typeName;
+    RankType(String name) {
+        this.name = name;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public SkillType[] getSkills(){
+        if (this.name.equals("Combat")){
+            return RPGProject.RANK_SKILLS.get(RankType.COMBAT);
+        }else if (this.name.equals("Gathering")){
+            return RPGProject.RANK_SKILLS.get(RankType.GATHERING);
+        }else if (this.name.equals("Crafting")){
+            return RPGProject.RANK_SKILLS.get(RankType.CRAFTING);
+        }
+        return null;
     }
 
-    public SkillType[] getSkillTypes() {
-        return skillTypes;
+    public String getName() {
+        return name;
     }
 }
+

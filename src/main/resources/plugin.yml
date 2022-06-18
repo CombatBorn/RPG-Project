@@ -8,8 +8,8 @@ description: A RPG Project
 commands:
   Stats:
     description: Shows your account stats.
-  Levels:
-      description: Shows your account levels.
+  Skills:
+    description: Shows your account levels.
   LevelUp:
       usage: /LevelUp <Skill Name>
       description: Spend points to level up a desired skill.

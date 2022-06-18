@@ -1,13 +1,5 @@
 package me.combatborn.skills.enums;
 
-import me.combatborn.skills.Skill;
-import org.bukkit.Bukkit;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public enum SkillType {
 
     // normal skills

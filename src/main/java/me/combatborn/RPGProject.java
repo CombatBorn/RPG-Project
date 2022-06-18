@@ -1,13 +1,14 @@
 package me.combatborn;
 
 import me.combatborn.commands.LevelUp;
-import me.combatborn.commands.Levels;
+import me.combatborn.commands.Skills;
 import me.combatborn.commands.Stats;
 import me.combatborn.data.LoginListener;
 import me.combatborn.data.PlayerData;
 import me.combatborn.data.PlayerDataManager;
 import me.combatborn.database.MySQL;
 import me.combatborn.items.RPGItem;
+import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -24,37 +25,53 @@ public final class RPGProject extends JavaPlugin {
     public static MySQL SQL;
     public static File PLUGINS_FOLDER_PATH;
 
-    public static boolean reboot;
+    public static boolean REBOOT;
 
-    public static HashMap<Integer, RPGItem> rpgItems = new HashMap<>();
-    public static HashMap<UUID, PlayerData> playerData = new HashMap<>();
+    public static HashMap<Integer, RPGItem> RPG_ITEMS = new HashMap<>();
+    public static HashMap<UUID, PlayerData> PLAYER_DATA = new HashMap<>();
 
-    public static final HashMap<String, SkillType> allSkills = new HashMap<>();
+    public static final HashMap<String, SkillType> SKILLS = new HashMap<>();
+
+    public static final HashMap<RankType, SkillType[]> RANK_SKILLS = new HashMap<>();
 
     @Override
+
     public void onEnable() {
-        reboot = false;
+        REBOOT = false;
         MAIN_CLASS = this;
         SQL = new MySQL("local");
         PLUGINS_FOLDER_PATH = getDataFolder();
 
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
         getCommand("Stats").setExecutor(new Stats());
-        getCommand("Levels").setExecutor(new Levels());
+        getCommand("Skills").setExecutor(new Skills());
         getCommand("LevelUp").setExecutor(new LevelUp());
 
         // store data from all files found within the local files
         retrieveRebootData();
 
         // load all online player's data into memory
-        for (Player player : Bukkit.getOnlinePlayers()){
+        for (Player player : Bukkit.getOnlinePlayers()) {
             LoginListener.login(player);
         }
 
         // define all skills into a static HashMap
-        for (SkillType skillType : SkillType.values()){
-            RPGProject.allSkills.put(skillType.getName().toLowerCase(Locale.ROOT),skillType);
+        for (SkillType skillType : SkillType.values()) {
+            RPGProject.SKILLS.put(skillType.getName().toLowerCase(Locale.ROOT), skillType);
         }
+
+        // define all skills for a rank into a static HashMap
+        RANK_SKILLS.put(RankType.COMBAT, new SkillType[]{SkillType.HEALTH, SkillType.SPEED,
+                SkillType.MELEE, SkillType.STRENGTH, SkillType.ARCHERY, SkillType.PRECISION,
+                SkillType.MAGIC, SkillType.FOCUS, SkillType.CLOAKING, SkillType.TRANSCRIPTING,
+                SkillType.DARKMAGIC, SkillType.SUMMONING});
+        RANK_SKILLS.put(RankType.GATHERING, new SkillType[]{SkillType.THIEVING, SkillType.TAMING, SkillType.HUNTING,
+                SkillType.FISHING, SkillType.MINING, SkillType.LUMBERJACKING, SkillType.FARMING,
+                SkillType.ENCHANTING, SkillType.DEEPFISHING, SkillType.BREEDING, SkillType.SOULCAPTURING});
+        RANK_SKILLS.put(RankType.CRAFTING, new SkillType[]{SkillType.FORGING, SkillType.LEATHERWORKING,
+                SkillType.WOODWORKING, SkillType.WEAVING, SkillType.COOKING, SkillType.FIRECREATION,
+                SkillType.GLASSBLOWING, SkillType.CRYSTALREADING, SkillType.BUILDING, SkillType.ALCHEMY,
+                SkillType.DIVINECREATION, SkillType.INFERNALFORGING, SkillType.SOULCRAFTING});
 
     }
 
@@ -63,11 +80,11 @@ public final class RPGProject extends JavaPlugin {
 
         // this enables all playerData files to be stored on local files
         // instead of the SQL to prevent loss of data
-        reboot = true;
+        REBOOT = true;
 
         //store player data to server local files
-        for (UUID uuid : RPGProject.playerData.keySet()) {
-            PlayerDataManager.storePlayerData(RPGProject.playerData.get(uuid));
+        for (UUID uuid : RPGProject.PLAYER_DATA.keySet()) {
+            PlayerDataManager.storePlayerData(RPGProject.PLAYER_DATA.get(uuid));
         }
 
     }
@@ -118,7 +135,6 @@ public final class RPGProject extends JavaPlugin {
                 totalRetrieved++;
 
 
-
             } catch (SQLException e) {
                 Bukkit.getLogger().info("[RPGProject] There was an error uploading file contents to the database: " + rebootDataFile.getName());
             }
@@ -137,18 +153,18 @@ public final class RPGProject extends JavaPlugin {
 
     public static PlayerData getPlayerData(Player player) {
 
-        if (!RPGProject.playerData.containsKey(player.getUniqueId())) {
+        if (!RPGProject.PLAYER_DATA.containsKey(player.getUniqueId())) {
 
             // fatal error, kick the player to prevent further issues
             player.kickPlayer("Your data failed to load, try logging in again or contact an administrator.");
             return null;
         }
 
-        return RPGProject.playerData.get(player.getUniqueId());
+        return RPGProject.PLAYER_DATA.get(player.getUniqueId());
     }
 
     public static boolean hasPlayerData(Player player) {
-        return RPGProject.playerData.containsKey(player.getUniqueId());
+        return RPGProject.PLAYER_DATA.containsKey(player.getUniqueId());
     }
 
 }

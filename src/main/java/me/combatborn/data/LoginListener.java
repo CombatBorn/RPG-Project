@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerCommandEvent;
@@ -66,7 +65,7 @@ public class LoginListener implements Listener {
         }
 
         //store the instance of the player's data within the playerData hashmap
-        RPGProject.playerData.put(uuid, new PlayerData(player));
+        RPGProject.PLAYER_DATA.put(uuid, new PlayerData(player));
     }
 
     // store data from the PlayerData object into the SQL
@@ -75,7 +74,7 @@ public class LoginListener implements Listener {
 
         // the storePlayerData() method is automatically called for any PlayerData objects
         // found in the Main Class's HashMap
-        if (RPGProject.reboot) {
+        if (RPGProject.REBOOT) {
             return;
         }
 

@@ -2,7 +2,6 @@ package me.combatborn.commands;
 
 import me.combatborn.RPGProject;
 import me.combatborn.data.PlayerData;
-import me.combatborn.skills.Skill;
 import me.combatborn.skills.enums.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -40,14 +39,14 @@ public class LevelUp implements CommandExecutor {
 
         // check if the skill entered is a valid skill
         String skillName = args[0].toLowerCase(Locale.ROOT);
-        if (!RPGProject.allSkills.containsKey(skillName.toLowerCase(Locale.ROOT))) {
+        if (!RPGProject.SKILLS.containsKey(skillName.toLowerCase(Locale.ROOT))) {
             player.sendMessage(skillName + " is not a valid skill.");
             player.sendMessage("Valid Skills: " + Arrays.toString(SkillType.values()));
             return false;
         }
 
         // attempt to level up a skill of your choice
-        playerData.getSkill(RPGProject.allSkills.get(skillName)).applyPoints();
+        playerData.getSkill(RPGProject.SKILLS.get(skillName)).applyPoints();
         return true;
     }
 }

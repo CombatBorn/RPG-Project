@@ -34,7 +34,7 @@ public class PlayerData {
     private final HashMap<SkillType, Skill> skills = new HashMap<>();
 
     public PlayerData(Player player) {
-        RPGProject.playerData.put(player.getUniqueId(), this);
+        RPGProject.PLAYER_DATA.put(player.getUniqueId(), this);
         this.PLAYER = player;
         this.UUID = player.getUniqueId();
         this.loginTime = (int) (System.currentTimeMillis() / 1000);
@@ -76,11 +76,21 @@ public class PlayerData {
     }
 
     public void displayAllSkillLevels() {
-        ArrayList<String> levels = new ArrayList<>();
-        for (SkillType skillType : SkillType.values()) {
-            levels.add(skillType.getName() + "[" + skills.get(skillType).getSkillLevel() + "]");
+
+        this.PLAYER.sendMessage(this.PLAYER.getDisplayName() + "'s Skills:");
+        this.PLAYER.sendMessage("Combat Skills:", " " + formatSkillText(RankType.COMBAT));
+        this.PLAYER.sendMessage("Gathering Skills:", " " + formatSkillText(RankType.GATHERING));
+        this.PLAYER.sendMessage("Crafting Skills:", " " + formatSkillText(RankType.CRAFTING));
+    }
+
+
+    // add colors to skills that are above level 0
+    private ArrayList<String> formatSkillText(RankType rankType){
+        ArrayList<String> skills = new ArrayList<>();
+        for (SkillType skill : rankType.getSkills()){
+            skills.add(skill.getName() + " ("+ getSkill(skill).getLevel() +")");
         }
-        this.PLAYER.sendMessage(this.PLAYER.getDisplayName() + "'s Levels: " + levels);
+        return skills;
     }
 
     // how long the player has been online in seconds
