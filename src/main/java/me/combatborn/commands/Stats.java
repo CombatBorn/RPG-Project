@@ -31,9 +31,9 @@ public class Stats implements CommandExecutor {
         player.sendMessage("  First Join: " + playerData.getFirstLogin().toString());
         player.sendMessage("  Play Time: " + playerData.getRealPlayTime() + "s");
         player.sendMessage("  Session Length: " + playerData.getSessionLength() + "s");
-        player.sendMessage("  Combat Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getCombatRank().getExperience() +") <"+ playerData.getCombatRank().getPoints() +">");
-        player.sendMessage("  Gathering Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getGatheringRank().getExperience() +") <"+ playerData.getGatheringRank().getPoints() +">");
-        player.sendMessage("  Crafting Level: " + playerData.getCombatRank().getRankLevel() + " ("+ playerData.getCraftingRank().getExperience() +") <"+ playerData.getCraftingRank().getPoints() +">");
+        player.sendMessage("  Combat Level: " + playerData.getCombatRank().getLevel() + " ("+ playerData.getCombatRank().getExperience() +") <"+ playerData.getCombatRank().getPoints() +">");
+        player.sendMessage("  Gathering Level: " + playerData.getCombatRank().getLevel() + " ("+ playerData.getGatheringRank().getExperience() +") <"+ playerData.getGatheringRank().getPoints() +">");
+        player.sendMessage("  Crafting Level: " + playerData.getCombatRank().getLevel() + " ("+ playerData.getCraftingRank().getExperience() +") <"+ playerData.getCraftingRank().getPoints() +">");
         player.sendMessage("  Monster Kills: " + playerData.getMonsterKills());
         player.sendMessage("  Boss Kills: " + playerData.getBossKills());
         return true;

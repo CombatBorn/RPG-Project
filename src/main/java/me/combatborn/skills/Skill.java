@@ -3,7 +3,10 @@ package me.combatborn.skills;
 import me.combatborn.data.PlayerData;
 import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
 
 
 public class Skill {
@@ -27,24 +30,30 @@ public class Skill {
         this.player = playerData.getPLAYER();
     }
 
-    public boolean applyPoints() {
-        if (this.level == 100) {
-            return false;
-        }
+    public boolean applyPoints(int amount) {
 
+        // elite skills require other skills to be level 100 before leveling up
         if (!hasRequirementsToLevelUp()) {
-            player.sendMessage("You haven't unlocked the " + this.name + " skill yet.");
+            player.sendMessage(this.name + " is an elite skill which you haven't unlocked yet. ", "Requires Level 100 in: " + ChatColor.GOLD + Arrays.toString(this.skillType.getRequiredSkills()));
             return false;
         }
 
-        // checks if player has enough points to level the skill
-        if ((this.elite && this.rank.getPoints() < 2) || this.rank.getPoints() < 1) {
-            player.sendMessage("You don't have enough " + this.rank.getType().getName() + " points to level up the " + this.name + " skill.");
+        // check if the desired level would surpass 100
+        if (this.level + amount > 100) {
+            player.sendMessage("Unable to apply points which would exceed level 100 in this skill.");
             return false;
         }
-        this.level++;
-        this.rank.removeRankPoints(this.elite);
-        player.sendMessage("Level up! Reached " + this.name + " skill level " + this.level);
+
+        // checks if player has the amount of points specified
+        if ((this.elite && this.rank.getPoints() < amount * 2) || (!this.elite && this.rank.getPoints() < amount)) {
+            player.sendMessage("You have " + this.rank.getPoints() + " available " + this.rank.getType().getName() + " points. Unable to apply " + amount + " points to the " + this.name + " skill.");
+            return false;
+        }
+
+        // all checks pass, apply points to the skill and reduce total points
+        this.level += amount;
+        this.rank.removeRankPoints(this.elite, amount);
+        player.sendMessage((amount > 1 ? "" + amount + " l" : "L") + "evel up" + (amount > 1 ? "s" : "") + "! Reached " + this.name + " skill level " + this.level);
         return true;
     }
 

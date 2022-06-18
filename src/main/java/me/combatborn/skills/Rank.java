@@ -9,7 +9,7 @@ public class Rank {
 
     private RankType type;
 
-    private int rankLevel;
+    private int level;
     private int experience;
     private int points;
 
@@ -18,7 +18,7 @@ public class Rank {
         this.type = type;
         this.experience = experience;
         this.points = points;
-        this.rankLevel = calculateRank();
+        this.level = calculateRank();
     }
 
     private int calculateRank() {
@@ -33,10 +33,10 @@ public class Rank {
 
     public void addExperience(int gainedExperience) {
         int newLevel = calculateRank(this.experience + gainedExperience);
-        if (rankLevel < newLevel) {
-            playerData.getPLAYER().sendMessage("You have advanced from " + this.type.getName() + " Rank Level " + this.rankLevel + " to " + newLevel + "!");
-            this.points += newLevel - this.rankLevel;
-            this.rankLevel = newLevel;
+        if (level < newLevel) {
+            playerData.getPLAYER().sendMessage("You have advanced from " + this.type.getName() + " Rank Level " + this.level + " to " + newLevel + "!");
+            this.points += newLevel - this.level;
+            this.level = newLevel;
         }else{
             playerData.getPLAYER().sendMessage("You earned "+gainedExperience+" experience toward your next "+ this.type.getName() +" level.");
         }
@@ -47,8 +47,8 @@ public class Rank {
         return playerData;
     }
 
-    public int getRankLevel() {
-        return rankLevel;
+    public int getLevel() {
+        return level;
     }
 
     public int getExperience() {
@@ -63,11 +63,11 @@ public class Rank {
         return type;
     }
 
-    public void removeRankPoints(boolean elite) {
+    public void removeRankPoints(boolean elite, int amount) {
         if (elite) {
-            this.points -= 2;
+            this.points -= 2 * amount;
         } else {
-            this.points -= 1;
+            this.points -= amount;
         }
     }
 }

@@ -22,8 +22,8 @@ public class LevelUp implements CommandExecutor {
             return false;
         }
 
-        // command requires 1 argument
-        if (args.length != 1) {
+        // command requires at least 1 argument
+        if (args.length < 1) {
             return false;
         }
 
@@ -45,8 +45,25 @@ public class LevelUp implements CommandExecutor {
             return false;
         }
 
+        // check if the player entered an integer, parse the String into an Integer
+        int amount = 1;
+        if (args.length > 1){
+            try{
+
+                // auto unbox from an Integer to an int
+                amount = Integer.parseInt(args[1]);
+
+            }catch (NumberFormatException e){
+
+                // the text put after the skill type was not a valid number
+                player.sendMessage(args[1] + " is not a valid number.");
+                return false;
+
+            }
+        }
+
         // attempt to level up a skill of your choice
-        playerData.getSkill(RPGProject.SKILLS.get(skillName)).applyPoints();
+        playerData.getSkill(RPGProject.SKILLS.get(skillName)).applyPoints(amount);
         return true;
     }
 }

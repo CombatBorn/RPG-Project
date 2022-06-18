@@ -20,7 +20,7 @@ public class PlayerDataManager {
             return -1.0;
         }
 
-        return (data.getCombatRank().getRankLevel() + data.getGatheringRank().getRankLevel() + data.getCraftingRank().getRankLevel()) / 3;
+        return (data.getCombatRank().getLevel() + data.getGatheringRank().getLevel() + data.getCraftingRank().getLevel()) / 3;
     }
 
     //Attempts to store all player's data to the SQL

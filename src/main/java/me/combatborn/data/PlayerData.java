@@ -5,6 +5,7 @@ import me.combatborn.skills.Rank;
 import me.combatborn.skills.Skill;
 import me.combatborn.skills.enums.RankType;
 import me.combatborn.skills.enums.SkillType;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
@@ -75,20 +76,35 @@ public class PlayerData {
         }
     }
 
+    // shows the player every skill level they're currently at
     public void displayAllSkillLevels() {
 
-        this.PLAYER.sendMessage(this.PLAYER.getDisplayName() + "'s Skills:");
-        this.PLAYER.sendMessage("Combat Skills:", " " + formatSkillText(RankType.COMBAT));
-        this.PLAYER.sendMessage("Gathering Skills:", " " + formatSkillText(RankType.GATHERING));
-        this.PLAYER.sendMessage("Crafting Skills:", " " + formatSkillText(RankType.CRAFTING));
+        this.PLAYER.sendMessage(ChatColor.GOLD + this.PLAYER.getDisplayName() + "'s Skills:");
+        this.PLAYER.sendMessage("Combat Levels: " + this.getCombatRank().getLevel() + " (" + this.getCombatRank().getPoints() + " points)", " " + formatSkillText(RankType.COMBAT));
+        this.PLAYER.sendMessage("Gathering Levels: " + this.getGatheringRank().getLevel() + " (" + this.getGatheringRank().getPoints() + " points)", " " + formatSkillText(RankType.GATHERING));
+        this.PLAYER.sendMessage("Crafting Levels: " + this.getCraftingRank().getLevel() + " (" + this.getCraftingRank().getPoints() + " points)", " " + formatSkillText(RankType.CRAFTING));
     }
 
 
     // add colors to skills that are above level 0
-    private ArrayList<String> formatSkillText(RankType rankType){
+    private ArrayList<String> formatSkillText(RankType rankType) {
         ArrayList<String> skills = new ArrayList<>();
-        for (SkillType skill : rankType.getSkills()){
-            skills.add(skill.getName() + " ("+ getSkill(skill).getLevel() +")");
+        ChatColor prefix;
+        for (SkillType skill : rankType.getSkills()) {
+            if (this.getSkill(skill).getLevel() > 0) {
+                prefix = ChatColor.YELLOW;
+            } else if (this.getSkill(skill).getLevel() > 25) {
+                prefix = ChatColor.GREEN;
+            } else if (this.getSkill(skill).getLevel() > 50) {
+                prefix = ChatColor.BLUE;
+            } else if (this.getSkill(skill).getLevel() > 75) {
+                prefix = ChatColor.DARK_PURPLE;
+            } else if (this.getSkill(skill).getLevel() == 100) {
+                prefix = ChatColor.GOLD;
+            } else {
+                prefix = ChatColor.WHITE;
+            }
+            skills.add(skill.getName() + " (" + prefix + getSkill(skill).getLevel() + ChatColor.RESET + ")");
         }
         return skills;
     }
@@ -158,12 +174,12 @@ public class PlayerData {
         return this.skills.get(skillType);
     }
 
-    public Rank getRank(RankType rankType){
-        if (rankType.equals(RankType.COMBAT)){
+    public Rank getRank(RankType rankType) {
+        if (rankType.equals(RankType.COMBAT)) {
             return this.combatRank;
-        }else if (rankType.equals(RankType.GATHERING)){
+        } else if (rankType.equals(RankType.GATHERING)) {
             return this.gatheringRank;
-        }else if (rankType.equals(RankType.CRAFTING)){
+        } else if (rankType.equals(RankType.CRAFTING)) {
             return this.craftingRank;
         }
         return null;
