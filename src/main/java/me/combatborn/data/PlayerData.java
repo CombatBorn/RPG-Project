@@ -76,13 +76,12 @@ public class PlayerData {
         }
     }
 
-    // shows the player every skill level they're currently at
+    // shows the player every skill categorized by rank with the level the player's currently at
     public void displayAllSkillLevels() {
-
         this.PLAYER.sendMessage(ChatColor.GOLD + this.PLAYER.getDisplayName() + "'s Skills:");
-        this.PLAYER.sendMessage("Combat Levels: " + this.getCombatRank().getLevel() + " (" + this.getCombatRank().getPoints() + " points)", " " + formatSkillText(RankType.COMBAT));
-        this.PLAYER.sendMessage("Gathering Levels: " + this.getGatheringRank().getLevel() + " (" + this.getGatheringRank().getPoints() + " points)", " " + formatSkillText(RankType.GATHERING));
-        this.PLAYER.sendMessage("Crafting Levels: " + this.getCraftingRank().getLevel() + " (" + this.getCraftingRank().getPoints() + " points)", " " + formatSkillText(RankType.CRAFTING));
+        this.PLAYER.sendMessage(ChatColor.YELLOW + "Combat Levels: Lv" + this.getCombatRank().getLevel() + " (" + this.getCombatRank().getPoints() + " points)", " " + formatSkillText(RankType.COMBAT));
+        this.PLAYER.sendMessage(ChatColor.YELLOW + "Gathering Levels: Lv" + this.getGatheringRank().getLevel() + " (" + this.getGatheringRank().getPoints() + " points)", " " + formatSkillText(RankType.GATHERING));
+        this.PLAYER.sendMessage(ChatColor.YELLOW + "Crafting Levels: Lv" + this.getCraftingRank().getLevel() + " (" + this.getCraftingRank().getPoints() + " points)", " " + formatSkillText(RankType.CRAFTING));
     }
 
 
@@ -91,16 +90,16 @@ public class PlayerData {
         ArrayList<String> skills = new ArrayList<>();
         ChatColor prefix;
         for (SkillType skill : rankType.getSkills()) {
-            if (this.getSkill(skill).getLevel() > 0) {
-                prefix = ChatColor.YELLOW;
-            } else if (this.getSkill(skill).getLevel() > 25) {
-                prefix = ChatColor.GREEN;
-            } else if (this.getSkill(skill).getLevel() > 50) {
-                prefix = ChatColor.BLUE;
-            } else if (this.getSkill(skill).getLevel() > 75) {
-                prefix = ChatColor.DARK_PURPLE;
-            } else if (this.getSkill(skill).getLevel() == 100) {
+            if (this.getSkill(skill).getLevel() == 100) {
                 prefix = ChatColor.GOLD;
+            } else if (this.getSkill(skill).getLevel() >= 75) {
+                prefix = ChatColor.DARK_PURPLE;
+            } else if (this.getSkill(skill).getLevel() >= 50) {
+                prefix = ChatColor.BLUE;
+            } else if (this.getSkill(skill).getLevel() >= 25) {
+                prefix = ChatColor.GREEN;
+            } else if (this.getSkill(skill).getLevel() > 0) {
+                prefix = ChatColor.YELLOW;
             } else {
                 prefix = ChatColor.WHITE;
             }

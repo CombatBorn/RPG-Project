@@ -1,8 +1,9 @@
 package me.combatborn;
 
-import me.combatborn.commands.LevelUp;
-import me.combatborn.commands.Skills;
-import me.combatborn.commands.Stats;
+import me.combatborn.commands.admin.CMD;
+import me.combatborn.commands.player.LevelUp;
+import me.combatborn.commands.player.Skills;
+import me.combatborn.commands.player.Stats;
 import me.combatborn.data.LoginListener;
 import me.combatborn.data.PlayerData;
 import me.combatborn.data.PlayerDataManager;
@@ -43,9 +44,11 @@ public final class RPGProject extends JavaPlugin {
         PLUGINS_FOLDER_PATH = getDataFolder();
 
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
+        getServer().getPluginManager().registerEvents(new LevelUp(), this);
         getCommand("Stats").setExecutor(new Stats());
         getCommand("Skills").setExecutor(new Skills());
         getCommand("LevelUp").setExecutor(new LevelUp());
+        getCommand("CMD").setExecutor(new CMD());
 
         // store data from all files found within the local files
         retrieveRebootData();

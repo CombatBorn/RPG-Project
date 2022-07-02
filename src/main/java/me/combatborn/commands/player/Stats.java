@@ -1,4 +1,4 @@
-package me.combatborn.commands;
+package me.combatborn.commands.player;
 
 import me.combatborn.RPGProject;
 import me.combatborn.data.PlayerData;

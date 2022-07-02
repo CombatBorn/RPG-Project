@@ -1,4 +1,4 @@
-package me.combatborn.commands;
+package me.combatborn.commands.player;
 
 import me.combatborn.RPGProject;
 import me.combatborn.data.PlayerData;
@@ -8,12 +8,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.TabCompleteEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Locale;
 
-public class LevelUp implements CommandExecutor {
+public class LevelUp implements CommandExecutor, Listener {
+
+    @EventHandler
+    public void onTabComplete(TabCompleteEvent event){
+//        Bukkit.getLogger().info(event.getEventName());
+//        event.setCompletions();
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 

@@ -13,3 +13,7 @@ commands:
   LevelUp:
       usage: /LevelUp <Skill Name>
       description: Spend points to level up a desired skill.
+  CMD:
+    permission: rpgproject.admin
+    usage: /CMD <Custom Model Data>
+    description: Change the custom model data of a held item.

@@ -37,8 +37,8 @@ public class Rank {
             playerData.getPLAYER().sendMessage("You have advanced from " + this.type.getName() + " Rank Level " + this.level + " to " + newLevel + "!");
             this.points += newLevel - this.level;
             this.level = newLevel;
-        }else{
-            playerData.getPLAYER().sendMessage("You earned "+gainedExperience+" experience toward your next "+ this.type.getName() +" level.");
+        } else {
+            playerData.getPLAYER().sendMessage("You earned " + gainedExperience + " experience toward your next " + this.type.getName() + " level.");
         }
         this.experience += gainedExperience;
     }
@@ -63,7 +63,7 @@ public class Rank {
         return type;
     }
 
-    public void removeRankPoints(boolean elite, int amount) {
+    public void removePoints(boolean elite, int amount) {
         if (elite) {
             this.points -= 2 * amount;
         } else {

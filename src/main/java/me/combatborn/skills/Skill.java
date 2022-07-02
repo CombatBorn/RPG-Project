@@ -52,7 +52,7 @@ public class Skill {
 
         // all checks pass, apply points to the skill and reduce total points
         this.level += amount;
-        this.rank.removeRankPoints(this.elite, amount);
+        this.rank.removePoints(this.elite, amount);
         player.sendMessage((amount > 1 ? "" + amount + " l" : "L") + "evel up" + (amount > 1 ? "s" : "") + "! Reached " + this.name + " skill level " + this.level);
         return true;
     }
